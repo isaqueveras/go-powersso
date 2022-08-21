@@ -47,12 +47,13 @@ func Authorization(secret *string) gin.HandlerFunc {
 		}
 
 		ctx.Set("UID", claims["user_id"])
-		ctx.Set("session", map[string]any{
-			"user_id":    claims["user_id"],
-			"user_level": claims["user_level"],
-			"first_name": claims["first_name"],
-			"last_name":  claims["last_name"],
-			"email":      claims["email"],
+		ctx.Set("session", &Session{
+			SessionID: claims["session_id"].(string),
+			UserID:    claims["user_id"].(string),
+			UserLevel: claims["user_level"].(string),
+			FirstName: claims["first_name"].(string),
+			LastName:  claims["last_name"].(string),
+			Email:     claims["email"].(string),
 		})
 	}
 }
